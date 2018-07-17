@@ -1,20 +1,7 @@
-.App {
-  text-align: center;
-}
+@import './reset';
 
-.App-logo {
-  animation: App-logo-appearance 1.6s ease-in;
-  height: 80px;
-  background: white;
-  padding: 15px 0;
-  border-radius: 3px;
-}
-
-.App-header {
-  background-color: #1B4691;
-  height: 150px;
-  padding: 20px;
-  color: white;
+body {
+  font-family: "HelveticaNeue-Regular", "Helvetica Neue Regular", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .App-intro {
