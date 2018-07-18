@@ -4,8 +4,8 @@ module.exports = function() {
 
   const db = {};
 
-  db.merchants = [...Array(5)].map((item, id)=> ({
-    id,
+  db.merchants = [...Array(100)].map((item, id)=> ({
+    id: id + 1,
     firstname:  faker.name.firstName(),
     lastname:   faker.name.lastName(),
     avatarUrl:  faker.internet.avatar(),
