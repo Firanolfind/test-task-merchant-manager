@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import ReactTable from "react-table";
-import "react-table/react-table.css";
 import * as actions from '~/redux/merchants/actions';
 
 class MerchantList extends Component {
@@ -23,7 +22,7 @@ class MerchantList extends Component {
               {
                 Header: '',
                 accessor: 'avatarUrl',
-                Cell: row => <img src={row.value} width="40" height="40" />
+                Cell: row => <img src={row.value} width="40" height="40" alt="avatar" />
               },
               {
                 Header: 'Merchant',

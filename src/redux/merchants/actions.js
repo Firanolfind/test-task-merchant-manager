@@ -80,7 +80,7 @@ export function remove(model) {
           method: "DELETE"
         })
         .then(res => {
-          dispatch(action.deleteSuccess(res.data))
+          dispatch(action.deleteSuccess(model))
         })
         .catch(err => {
           dispatch(action.deleteError(err, model))

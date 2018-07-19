@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Row, Col, Button, Jumbotron } from 'reactstrap';
-import ReactTable from "react-table";
-import "react-table/react-table.css";
-import * as actions from '~/redux/merchants/actions';
+import { Row, Col, Jumbotron } from 'reactstrap';
 
 class Index extends Component {
 
@@ -24,15 +18,14 @@ class Index extends Component {
             <code>yarn start</code>
             <hr className="my-4" />
             <h5 className="display-6">Task</h5>
-            <p className="">Develop SPA which should manage merchants. A user can interact with:
-              <ul>
-                <li>☑ list of merchants (better with pagination)</li>
-                <li>☑ adding merchant (redux-form is allowed but not required)</li>
-                <li>☑ merchant editing</li>
-                <li>☐ merchant removing</li>
-                <li>☑ sorted history of bids for each merchant</li>
-              </ul>
-            </p>
+            <p className="">Develop SPA which should manage merchants. A user can interact with:</p>
+            <ul>
+              <li>☑ list of merchants (better with pagination)</li>
+              <li>☑ adding merchant (redux-form is allowed but not required)</li>
+              <li>☑ merchant editing</li>
+              <li>☐ merchant removing</li>
+              <li>☑ sorted history of bids for each merchant</li>
+            </ul>
             <p className="">Front-end part should be developed as SPA with ES6, React and Redux.
 You can also use TypeScript to develop this task, but it is not required
 Back-end API should be mocked.</p>

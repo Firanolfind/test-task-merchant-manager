@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import SubmitForm from './SubmitForm';
 import * as actions from '~/redux/merchants/actions';
 
@@ -34,6 +34,9 @@ class Edit extends Component {
         <Col>
           <h1>Add new Merchant</h1>
           <SubmitForm
+            initialValues={{
+              bids: []
+            }}
             errorProp={error}
             disabled={this.state.disabled}
             onSubmit={this.handleSubmit} />

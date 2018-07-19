@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Input, Alert, FormGroup, Label } from 'reactstrap';
 import { Field } from 'redux-form';
 

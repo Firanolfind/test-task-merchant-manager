@@ -2,11 +2,83 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Container, Button, ButtonGroup,
-  Alert, NavLink, ListGroup, ListGroupItem, Modal, ModalHeader, ModalFooter
+import {
+  Row, Col, Button, Alert, ListGroup,
+  ListGroupItem, Modal, ModalHeader, ModalFooter
 } from 'reactstrap';
 import Moment from 'moment';
 import * as actions from '~/redux/merchants/actions';
+
+class MerchantSingle extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      deleteModal: false,
+      model: null,
+      id: null
+    };
+  }
+
+  cancelDelete = () => {
+    this.setState({
+      deleteModal: false
+    });
+  }
+
+  confirmDelete = () => {
+    this.setState({
+      deleteModal: true
+    });
+  }
+
+  handleDelete = () => {
+    this.props.actions.remove(this.state.model);
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.temp.__deleted)
+      return props.history.push(`/merchants`);
+
+    const model = props.collection.find(item => item.id === this.state.id);
+    this.setState({ model });
+  }
+
+  componentWillMount() {
+    const id = ~~this.props.match.params.id;
+    this.setState({ id });
+    this.props.actions.fetch(id);
+  }
+
+  componentWillUnmount() {
+    this.props.actions.resetSingle();
+  }
+
+  render () {
+    const { error } = this.props;
+    const model = this.state.model;
+
+    return (
+      <div className="merchant-single">
+        { model
+          ? <Content model={model} error={error} handleDelete={this.confirmDelete} />
+          : error
+            ? <Alert color="danger">
+                {error.msg ? error.msg : 'Error. Could not load data from server'}
+              </Alert>
+            : <h1>Loading...</h1>
+        }
+        <Modal isOpen={this.state.deleteModal} toggle={this.cancelDelete} className={this.props.className}>
+          <ModalHeader toggle={this.cancelDelete}>Are you sure you want to delete merchant?</ModalHeader>
+          <ModalFooter>
+            <Button color="danger" onClick={this.handleDelete}>Delete</Button>{' '}
+            <Button color="secondary" onClick={this.cancelDelete}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
 
 const Content = props => (
   <Row>
@@ -41,7 +113,7 @@ const Content = props => (
       </Row>
       <h5 className="display-6">Bids</h5>
       <ListGroup>
-        {props.model.bids
+        {props.model.bids && props.model.bids
           .sort((a, b) => Moment(a.created) < Moment(b.created))
           .map(item => (
             <ListGroupItem key={item.id}>
@@ -66,62 +138,10 @@ const Content = props => (
   </Row>
 );
 
-class MerchantSingle extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      deleteModal: false
-    };
-  }
-
-  cancelDelete = () => {
-    this.setState({
-      deleteModal: false
-    });
-  }
-
-  confirmDelete = () => {
-    this.setState({
-      deleteModal: true
-    });
-  }
-
-  componentWillMount() {
-    const id = this.props.match.params.id;
-    this.props.actions.fetch(id);
-  }
-
-  render () {
-    const { collection, error } = this.props;
-    const id = ~~this.props.match.params.id;
-    const model = collection.find(item => item.id === id);
-
-    return (
-      <div className="merchant-single">
-        { model
-          ? <Content model={model} error={error} handleDelete={this.confirmDelete} />
-          : error
-            ? <Alert color="danger">
-                {error.msg ? error.msg : 'Error. Could not load data from server'}
-              </Alert>
-            : <h1>Loading...</h1>
-        }
-        <Modal isOpen={this.state.deleteModal} toggle={this.cancelDelete} className={this.props.className}>
-          <ModalHeader toggle={this.cancelDelete}>Are you sure you want to delete merchant?</ModalHeader>
-          <ModalFooter>
-            <Button color="error" onClick={this.props.actions.remove}>Delete</Button>{' '}
-            <Button color="secondary" onClick={this.cancelDelete}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
-}
-
 export default connect(
   state => ({
     collection: state.merchants.collection,
+    temp: state.merchants.temp,
     error: state.merchants.error
   }),
   dispatch => ({

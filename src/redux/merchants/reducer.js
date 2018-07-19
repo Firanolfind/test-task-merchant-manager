@@ -32,11 +32,23 @@ function temp(state=initialTemp, action) {
         __updated: true
       };
 
+    case AT.MERCHANTS_DELETE_START:
+      return {
+        ...action.record,
+        __deleted: false
+      };
+
+    case AT.MERCHANTS_DELETE_SUCCESS:
+      return {
+        ...action.record,
+        __deleted: true
+      };
+
     case MERCHANTS_DESTROY_TEMP:
       return initialTemp;
 
     default:
-      return state;
+      return initialTemp;
   }
 }
 
