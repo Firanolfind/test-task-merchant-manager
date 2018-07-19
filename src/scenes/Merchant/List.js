@@ -8,11 +8,9 @@ import "react-table/react-table.css";
 import * as actions from '~/redux/merchants/actions';
 
 class MerchantList extends Component {
-
   componentWillMount() {
     this.props.actions.fetch();
   }
-
   render () {
     return (
       <Row className="merchant-list">
@@ -29,13 +27,20 @@ class MerchantList extends Component {
                 Header: 'Merchant',
                 id: 'id',
                 Cell: data => {
-                  const { id, firstname, lastname } = data.original;
-                  return <Link to={`/merchants/${id}`}>{`${firstname} ${lastname}`}</Link>
+                  const { id, firstname, lastname, busy } = data.original;
+                  const title = `${firstname || ''} ${lastname || ''}`;
+                  return busy
+                    ? title
+                    : <Link to={`/merchants/${id}`}>{title}</Link>
                 }
               },
               {
                 Header: 'Email',
                 accessor: 'email'
+              },
+              {
+                Header: 'Phone Number',
+                accessor: 'phone'
               },
               {
                 Header: 'Premium',

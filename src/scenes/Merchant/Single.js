@@ -5,7 +5,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 class Single extends Component {
   render () {
     return (
-      <Row className="merchant-list">
+      <Row className="merchant-single">
         <Col xs="12">
           single
         </Col>
