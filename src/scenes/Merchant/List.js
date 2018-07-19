@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect }            from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import ReactTable from "react-table";
@@ -11,6 +11,7 @@ class MerchantList extends Component {
   componentWillMount() {
     this.props.actions.fetch();
   }
+
   render () {
     return (
       <Row className="merchant-list">
@@ -58,7 +59,7 @@ class MerchantList extends Component {
 
 export default connect(
     state => ({
-        items: state.merchants
+        items: state.merchants.list
     }),
     dispatch => ({
         actions: bindActionCreators(actions, dispatch)

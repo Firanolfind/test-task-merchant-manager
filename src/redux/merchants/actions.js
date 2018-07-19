@@ -1,4 +1,4 @@
-import { MERCHANTS } from './constants';
+import { MERCHANTS, MERCHANTS_DESTROY_TEMP } from './constants';
 import reduxCrud from 'redux-crud';
 import axios from 'axios';
 import cuid from 'cuid';
@@ -22,28 +22,22 @@ export function fetch() {
 }
 
 export function create(model) {
-  console.log(model);
-
     return (dispatch, getState) => {
       const cid = cuid();
+      const local = {...model, id: cid};
       axios({
           url,
           method: "POST",
-          data: {
-            ...model
-          }
+          data: model
         })
         .then(res => {
           dispatch(action.createSuccess(res.data, cid))
         })
         .catch(err => {
-          dispatch(action.createError(err, model))
+          dispatch(action.createError(err, local))
         });
 
-      return dispatch(action.createStart({
-        ...model,
-        id: cid
-      }));
+      return dispatch(action.createStart(local));
     };
 }
 
@@ -80,4 +74,10 @@ export function remove(model) {
 
       return dispatch(action.deleteStart(model));
     };
+}
+
+export function resetSingle() {
+  return {
+    type: MERCHANTS_DESTROY_TEMP
+  }
 }
