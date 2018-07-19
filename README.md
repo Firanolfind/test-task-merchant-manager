@@ -6,6 +6,9 @@
 
 `yarn start`
 
+Up mock rest api server
+`yarn run rest`
+
 ## Task
 
 Develop SPA which should manage merchants. A user can interact with:

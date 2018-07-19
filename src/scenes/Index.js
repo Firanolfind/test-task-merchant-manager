@@ -15,6 +15,8 @@ class Index extends Component {
             <h5 className="display-6">To start</h5>
             <code>yarn</code>
             <br/>
+            <code>yarn run rest // Up mock rest api server</code>
+            <br/>
             <code>yarn start</code>
             <hr className="my-4" />
             <h5 className="display-6">Task</h5>
