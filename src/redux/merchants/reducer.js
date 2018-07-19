@@ -1,25 +1,26 @@
 import { combineReducers } from 'redux';
-import * as CONST from './constants';
+import { MERCHANTS, MERCHANTS_DESTROY_TEMP } from './constants';
 import reduxCrud from 'redux-crud';
 
+const AT = reduxCrud.actionTypesFor(MERCHANTS);
 const initialTemp = {};
 const initialError = null;
 
 function temp(state=initialTemp, action) {
   switch (action.type) {
-    case CONST.MERCHANTS_CREATE_START:
+    case AT.MERCHANTS_CREATE_START:
       return {
         ...action.record,
         __created: false
       };
 
-    case CONST.MERCHANTS_CREATE_SUCCESS:
+    case AT.MERCHANTS_CREATE_SUCCESS:
       return {
         ...action.record,
         __created: true
       };
 
-    case CONST.MERCHANTS_DESTROY_TEMP:
+    case MERCHANTS_DESTROY_TEMP:
       return initialTemp;
 
     default:
@@ -29,12 +30,11 @@ function temp(state=initialTemp, action) {
 
 function error(state=initialError, action) {
   switch(action.type) {
-    case CONST.MERCHANTS_CREATE_ERROR:
+    case AT.MERCHANTS_FETCH_ERROR:
+    case AT.MERCHANTS_DELETE_ERROR:
+    case AT.MERCHANTS_UPDATE_ERROR:
+    case AT.MERCHANTS_CREATE_ERROR:
       return action.error;
-
-    case CONST.MERCHANTS_CREATE_SUCCESS:
-    case CONST.MERCHANTS_DESTROY_TEMP:
-      return initialError;
 
     default:
       return state;
@@ -44,5 +44,5 @@ function error(state=initialError, action) {
 export default combineReducers({
   error,
   temp,
-  list: reduxCrud.List.reducersFor(CONST.MERCHANTS)
+  collection: reduxCrud.List.reducersFor(MERCHANTS)
 });

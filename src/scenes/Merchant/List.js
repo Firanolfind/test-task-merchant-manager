@@ -8,8 +8,9 @@ import "react-table/react-table.css";
 import * as actions from '~/redux/merchants/actions';
 
 class MerchantList extends Component {
+
   componentWillMount() {
-    this.props.actions.fetch();
+    this.props.actions.fetchAll();
   }
 
   render () {
@@ -17,7 +18,7 @@ class MerchantList extends Component {
       <Row className="merchant-list">
         <Col xs="12">
           <ReactTable
-            data={this.props.items}
+            data={this.props.collection}
             columns={[
               {
                 Header: '',
@@ -58,10 +59,10 @@ class MerchantList extends Component {
 }
 
 export default connect(
-    state => ({
-        items: state.merchants.list
-    }),
-    dispatch => ({
-        actions: bindActionCreators(actions, dispatch)
-    })
+  state => ({
+    collection: state.merchants.collection
+  }),
+  dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+  })
 )(MerchantList);

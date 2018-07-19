@@ -11,7 +11,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { store } from './redux/store';
 
 import { fetch } from './redux/merchants/actions';
-window.fffetch = ()=>fetch()(store.dispatch, store.getState);
+window.fetchSingle = (id)=>fetch(id)(store.dispatch, store.getState);
+
 
 ReactDOM.render(
   <Provider store={store}>

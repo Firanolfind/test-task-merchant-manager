@@ -7,7 +7,21 @@ const action = reduxCrud.actionCreatorsFor(MERCHANTS);
 const baseurl = 'http://localhost:3030';
 const url = `${baseurl}/merchants`;
 
-export function fetch() {
+export function fetch(id) {
+    return (dispatch, getState) => {
+      axios({url: `${url}/${id}`})
+        .then(res => {
+          dispatch(action.fetchSuccess(res.data))
+        })
+        .catch(err => {
+          dispatch(action.fetchError(err))
+        });
+
+      return dispatch(action.fetchStart());
+    };
+}
+
+export function fetchAll() {
     return (dispatch, getState) => {
       axios({url})
         .then(res => {

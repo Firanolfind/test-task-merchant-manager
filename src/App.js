@@ -4,6 +4,7 @@ import { Container } from 'reactstrap';
 import Header from './components/Header';
 import MerchantList from './scenes/Merchant/List';
 import MerchantEdit from './scenes/Merchant/Edit';
+import MerchantAddNew from './scenes/Merchant/AddNew';
 import MerchantSingle from './scenes/Merchant/Single';
 
 import './App.scss';
@@ -22,7 +23,7 @@ class App extends Component {
               component={MerchantList}
               />
             <Route path='/merchants/add' exact
-              component={MerchantEdit}
+              component={MerchantAddNew}
               />
             <Route path='/merchants/:id' exact
               component={MerchantSingle}
