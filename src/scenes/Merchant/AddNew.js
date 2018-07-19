@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
@@ -29,16 +28,13 @@ class Edit extends Component {
 
   render () {
     const { error } = this.props;
+
     return (
-      <Row className="merchant-edit">
+      <Row className="merchant-addnew">
         <Col>
           <h1>Add new Merchant</h1>
-          { error &&
-            <Alert color="danger">
-              {error.msg ? error.msg : 'Unknown error, probably could not connect to remote server'}
-            </Alert>
-          }
           <SubmitForm
+            errorProp={error}
             disabled={this.state.disabled}
             onSubmit={this.handleSubmit} />
         </Col>

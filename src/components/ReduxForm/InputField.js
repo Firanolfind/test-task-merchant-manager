@@ -3,7 +3,7 @@ import { Input, Alert, FormGroup, Label } from 'reactstrap';
 import { Field } from 'redux-form';
 
 const renderField = ({ input, label, type, placeholder, meta: { touched, error, warning } }) => (
-  console.log(input) || <FormGroup>
+  <FormGroup>
     {touched
       && ((error
         && <Alert color="danger">{error}</Alert>)

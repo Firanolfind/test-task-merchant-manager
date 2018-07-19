@@ -20,6 +20,18 @@ function temp(state=initialTemp, action) {
         __created: true
       };
 
+    case AT.MERCHANTS_UPDATE_START:
+      return {
+        ...action.record,
+        __updated: false
+      };
+
+    case AT.MERCHANTS_UPDATE_SUCCESS:
+      return {
+        ...action.record,
+        __updated: true
+      };
+
     case MERCHANTS_DESTROY_TEMP:
       return initialTemp;
 

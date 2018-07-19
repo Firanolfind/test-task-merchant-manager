@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'reactstrap';
+import { Form, Button, Alert } from 'reactstrap';
 import { reduxForm } from 'redux-form';
 import InputField from '~/components/ReduxForm/InputField';
 import { required, minLength, maxLength, email, phone } from '~/utils/fieldValidation';
@@ -9,6 +9,11 @@ const max14 = maxLength(14);
 
 const SubmitForm = props => (
   <Form onSubmit={props.handleSubmit}>
+    { props.errorProp &&
+      <Alert color="danger">
+        {props.errorProp.msg ? props.errorProp.msg : 'Unknown error, probably could not connect to remote server'}
+      </Alert>
+    }
     <InputField
       id="firstname"
       type="text"

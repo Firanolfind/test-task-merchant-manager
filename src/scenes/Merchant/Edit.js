@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
@@ -14,11 +13,16 @@ class Edit extends Component {
 
   handleSubmit = values => {
     this.setState({ disabled: true });
-    this.props.actions.create(values);
+    this.props.actions.update(values);
+  }
+
+  componentWillMount() {
+    const id = this.props.match.params.id;
+    this.props.actions.fetch(id);
   }
 
   componentWillReceiveProps(props) {
-    if(props.temp.__created) {
+    if(props.temp.__updated) {
       props.history.push(`/merchants/${props.temp.id}`);
     }
   }
@@ -28,19 +32,26 @@ class Edit extends Component {
   }
 
   render () {
-    const { error } = this.props;
+    const { collection, error } = this.props;
+    const id = ~~this.props.match.params.id;
+    const model = collection.find(item => item.id === id);
+
     return (
       <Row className="merchant-edit">
         <Col>
-          <h1>Add new Merchant</h1>
-          { error &&
-            <Alert color="danger">
-              {error.msg ? error.msg : 'Error. Could not load data from server'}
-            </Alert>
+          <h1>Edit Merchant</h1>
+          { model
+            ? <SubmitForm
+                initialValues={model}
+                errorProp={error}
+                disabled={this.state.disabled}
+                onSubmit={this.handleSubmit} />
+            : error
+              ? <Alert color="danger">
+                  {error.msg ? error.msg : 'Error. Could not load data from server'}
+                </Alert>
+              : <h1>Loading...</h1>
           }
-          <SubmitForm
-            disabled={this.state.disabled}
-            onSubmit={this.handleSubmit} />
         </Col>
       </Row>
     );
@@ -50,7 +61,8 @@ class Edit extends Component {
 export default connect(
   state => ({
     temp: state.merchants.temp,
-    error: state.merchants.error
+    error: state.merchants.error,
+    collection: state.merchants.collection
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
