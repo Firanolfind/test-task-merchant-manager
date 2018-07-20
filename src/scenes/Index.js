@@ -25,7 +25,7 @@ class Index extends Component {
               <li>☑ list of merchants (better with pagination)</li>
               <li>☑ adding merchant (redux-form is allowed but not required)</li>
               <li>☑ merchant editing</li>
-              <li>☐ merchant removing</li>
+              <li>☑ merchant removing</li>
               <li>☑ sorted history of bids for each merchant</li>
             </ul>
             <p className="">Front-end part should be developed as SPA with ES6, React and Redux.
